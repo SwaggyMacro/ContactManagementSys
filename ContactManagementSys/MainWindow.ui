@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ContactManagementSysClass</class>
+ <widget class="QMainWindow" name="ContactManagementSysClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>424</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ContactManagementSys</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#centralWidget { 
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 10px;
+	border: 1px solid black;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="labelTitle">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>421</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#labelTitle {
+	qproperty-alignment: AlignCenter;
+	color: #09c174;
+	letter-spacing: 3px;
+	font-family: Microsoft Yahei;
+	font-size: 16px;
+	margin-top: 10px;
+}</string>
+    </property>
+    <property name="text">
+     <string>联系人</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="contactTable">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>431</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#contactTable {
+	margin: 20px;
+	background-color: black;
+    border: none;
+	color: white;
+}
+#contactTable QHeaderView::section {
+	background-color: transparent;
+    border: none;
+}
+QTableView::item:selected{
+	background-color: rgba(255, 255, 255, 0);
+}
+
+QScrollBar:vertical {
+    border: none;
+    background-color: #333333;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #666666;
+    min-height: 20px;
+    border-radius: 5px;
+}
+
+QScrollBar::add-line:vertical {
+    border: none;
+    background-color: #333333;
+    height: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+    border-radius: 5px;
+}
+
+QScrollBar::sub-line:vertical {
+    border: none;
+    background-color: #333333;
+    height: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+    border-radius: 5px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background-color: none;
+    border-radius: 5px;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="sortLetterList">
+    <property name="geometry">
+     <rect>
+      <x>361</x>
+      <y>110</y>
+      <width>16</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#sortLetterList {
+	background: #191919;
+	border: none;
+	color: #848484;
+	border-radius: 5px;
+	font-size: 10px;
+	padding: 0px;
+	margin: 0px;
+}
+#sortLetterList::item {
+    border: none;
+    padding: 0px;
+    text-align: center;
+}
+#sortLetterList::item:selected {
+	background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}
+
+#sortLetterList::item:hover {
+    background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}
+
+#sortLetterList::item:selected:hover {
+    background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}
+
+#sortLetterList::item:pressed {
+    background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}
+
+#sortLetterList::item:selected:pressed {
+	background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}
+
+#sortLetterList::item:focus {
+    background-color: rgba(255, 255, 255, 0);
+	color: #1d81c4;
+}</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="ContactManagementSys.qrc"/>
+ </resources>
+ <connections/>
+</ui>

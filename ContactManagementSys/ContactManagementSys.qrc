@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="ContactManagementSys">
+    <file>Assets/Images/save.jpg</file>
+  </qresource>
+</RCC>
