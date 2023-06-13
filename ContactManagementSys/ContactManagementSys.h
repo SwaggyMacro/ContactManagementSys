@@ -50,6 +50,7 @@ private slots:
     void onSearchBoxTextChanged(const QString& text);
     void onSortLetterListItemClicked(const QModelIndex& index);
     void onTableViewItemCountChanged();
+    void onCloseBtnClicked();
 
 protected:
 

@@ -272,6 +272,31 @@ font-family: Microsoft Yahei</string>
      <string>0 已找到</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="closeBtn">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#closeBtn {
+	border-radius: 10px;
+	background-image: url(:/ContactManagementSys/Assets/Images/close.png);
+}
+#closeBtn::hover {
+	background-image: url(:/ContactManagementSys/Assets/Images/close_red.png);
+}
+#closeBtn::pressed {
+	background-image: url(:/ContactManagementSys/Assets/Images/close_dark_red.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>searchBoxBg</zorder>
    <zorder>labelTitle</zorder>
    <zorder>contactTable</zorder>
@@ -279,6 +304,7 @@ font-family: Microsoft Yahei</string>
    <zorder>searchBox</zorder>
    <zorder>addButton</zorder>
    <zorder>labelCount</zorder>
+   <zorder>closeBtn</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

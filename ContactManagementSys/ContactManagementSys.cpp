@@ -129,10 +129,16 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     connect(model, &QStandardItemModel::rowsInserted, this, &ContactManagementSys::onTableViewItemCountChanged);
     connect(model, &QStandardItemModel::rowsRemoved, this, &ContactManagementSys::onTableViewItemCountChanged);
 
+    connect(ui.closeBtn, &QPushButton::clicked, this, &ContactManagementSys::onCloseBtnClicked);
+
     initLetterList();
     loadData();
 
    }
+
+void ContactManagementSys::onCloseBtnClicked() {
+    exit(0);
+}
 
 void ContactManagementSys::onTableViewItemCountChanged() {
 	ui.labelCount->setText(QString::number(model->rowCount()) + " 已找到");

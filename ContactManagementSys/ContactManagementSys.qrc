@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="ContactManagementSys">
+    <file>Assets/Images/close_dark_red.png</file>
+    <file>Assets/Images/close.png</file>
+    <file>Assets/Images/close_red.png</file>
     <file>Assets/Images/bg.jpg</file>
     <file>Assets/Images/edit_green.png</file>
     <file>Assets/Images/delete.png</file>
