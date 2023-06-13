@@ -8,6 +8,7 @@
 #include <qsettings.h>
 #include <qmessagebox.h>
 #include <qregularexpression.h>
+#include "Contact.h"
 
 
 AddEditWindow::AddEditWindow(QWidget *parent)
@@ -102,6 +103,27 @@ void AddEditWindow::onConfirmBtnClicked() {
 			QMessageBox::warning(this, "Warning", "邮箱格式不正确！");
 			return;
 		}
+	}
+	Contact contact;
+	// QString to std::string
+	contact.name = ui.tbName->text().toStdString();
+	contact.phone = ui.tbPhone->text().toStdString();
+	contact.company = ui.tbComName->text().isEmpty() ? "" : ui.tbComName->text().toStdString();
+	contact.email = ui.tbEmail->text().isEmpty() ? "" : ui.tbEmail->text().toStdString();
+	contact.address = ui.tbAddress->text().isEmpty() ? "" : ui.tbAddress->text().toStdString();
+	contact.position = ui.tbComPos->text().isEmpty() ? "" : ui.tbComPos->text().toStdString();
+	contact.avatar = ui.avatarLabel->styleSheet().split("url(")[1].split(")")[0].toStdString();
+	contact.next = nullptr;
+	ContactList contactList;
+	contactList.addContact(&contact);
+	contactList.loadFromFile("data.json");
+
+	if (contactList.saveToFile("data.json")) {
+		QMessageBox::information(this, "Success", "保存成功！");
+		this->close();
+	}
+	else {
+		QMessageBox::warning(this, "Warning", "保存失败！");
 	}
 }
 

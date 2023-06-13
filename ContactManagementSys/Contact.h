@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 class Contact {
 public:
@@ -21,11 +23,10 @@ public:
 class ContactList {
 public:
     ContactList();
-    ~ContactList();
 
-    void addContact(std::string name, std::string company, std::string position, std::string phone, std::string email);
-    void deleteContact(std::string name);
-    void editContact(std::string name, std::string company, std::string position, std::string phone, std::string email);
+    void addContact(Contact* contact);
+    void deleteContact(std::string phone);
+    void editContact(std::string phone, Contact* contact);
     void sortByName();
     void sortByPhone();
     void printContacts();
@@ -34,8 +35,6 @@ public:
 
 private:
     Contact* head;
-    std::vector<Contact> contacts;
 
-    void updateContacts();
 };
 

@@ -155,6 +155,7 @@ void ContactManagementSys::insertShuffleData() {
     ui.contactTable->setFocusPolicy(Qt::NoFocus);
     ui.contactTable->setColumnWidth(0, ui.contactTable->width() - 130);
     ui.contactTable->setColumnWidth(1, 100);
+    ui.contactTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     
     // insert a-z and # to sortLetterList
     QStringList sortLetterList;

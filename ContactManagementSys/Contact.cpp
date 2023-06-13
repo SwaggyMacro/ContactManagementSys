@@ -1,198 +1,31 @@
 #include "Contact.h"
-#include <iostream>
-#include <algorithm>
 #include <fstream>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <qfile.h>
-
-using namespace std;
-
-ContactList::ContactList() {
-    head = nullptr;
-}
-
-ContactList::~ContactList() {
-    Contact* current = head;
-    while (current != nullptr) {
-        Contact* next = current->next;
-        delete current;
-        current = next;
-    }
-}
-
-void ContactList::addContact(string name, string company, string position, string phone, string email) {
-    Contact* newContact = new Contact;
-    newContact->name = name;
-    newContact->company = company;
-    newContact->position = position;
-    newContact->phone = phone;
-    newContact->email = email;
-    newContact->next = nullptr;
-
-    if (head == nullptr) {
-        head = newContact;
-    }
-    else {
-        Contact* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
-        }
-        current->next = newContact;
-    }
-    updateContacts();
-}
-
-void ContactList::deleteContact(string name) {
-    if (head == nullptr) {
-        return;
-    }
-    if (head->name == name) {
-        Contact* temp = head;
-        head = head->next;
-        delete temp;
-        updateContacts();
-        return;
-    }
-    Contact* current = head;
-    while (current->next != nullptr) {
-        if (current->next->name == name) {
-            Contact* temp = current->next;
-            current->next = current->next->next;
-            delete temp;
-            updateContacts();
-            return;
-        }
-        current = current->next;
-    }
-}
-
-void ContactList::editContact(string name, string company, string position, string phone, string email) {
-    Contact* current = head;
-    while (current != nullptr) {
-        if (current->name == name) {
-            current->company = company;
-            current->position = position;
-            current->phone = phone;
-            current->email = email;
-            updateContacts();
-            return;
-        }
-        current = current->next;
-    }
-}
-
-void ContactList::sortByName() {
-    if (head == nullptr) {
-        return;
-    }
-    bool swapped;
-    Contact* current;
-    Contact* last = nullptr;
-    do {
-        swapped = false;
-        current = head;
-        while (current->next != last) {
-            if (current->name > current->next->name) {
-                swap(current->name, current->next->name);
-                swap(current->company, current->next->company);
-                swap(current->position, current->next->position);
-                swap(current->phone, current->next->phone);
-                swap(current->email, current->next->email);
-                swapped = true;
-            }
-            current = current->next;
-        }
-        last = current;
-    } while (swapped);
-    updateContacts();
-}
-
-void ContactList::sortByPhone() {
-    if (head == nullptr) {
-        return;
-    }
-    bool swapped;
-    Contact* current;
-    Contact* last = nullptr;
-    do {
-        swapped = false;
-        current = head;
-        while (current->next != last) {
-            if (current->phone > current->next->phone) {
-                swap(current->name, current->next->name);
-                swap(current->company, current->next->company);
-                swap(current->position, current->next->position);
-                swap(current->phone, current->next->phone);
-                swap(current->email, current->next->email);
-                swapped = true;
-            }
-            current = current->next;
-        }
-        last = current;
-    } while (swapped);
-    updateContacts();
-}
-
-void ContactList::printContacts() {
-    Contact* current = head;
-    while (current != nullptr) {
-        cout << "Name: " << current->name << endl;
-        cout << "Company: " << current->company << endl;
-        cout << "Position: " << current->position << endl;
-        cout << "Phone: " << current->phone << endl;
-        cout << "Email: " << current->email << endl;
-        cout << endl;
-        current = current->next;
-    }
-}
-
-bool ContactList::loadFromFile(const string& filename) {
-    QFile file(QString::fromStdString(filename));
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return false;
-    }
-    QByteArray fileContent = file.readAll();
-    file.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(fileContent);
-    if (!doc.isArray()) {
-        return false;
-    }
-    QJsonArray array = doc.array();
-    contacts.clear();
-    for (int i = 0; i < array.size(); i++) {
-        QJsonObject obj = array[i].toObject();
-        Contact contact = Contact::fromJson(obj);
-        contacts.push_back(contact);
-    }
-    updateContacts(); 
-    return true;
-}
-
-bool ContactList::saveToFile(const string& filename) {
-    QJsonArray array;
-    for (const Contact& contact : contacts) {
-        QJsonObject obj = contact.toJson();
-        array.append(obj);
-    }
-    QJsonDocument doc(array);
-    ofstream file(filename);
-    if (!file.is_open()) {
-        return false;
-    }
-    file << doc.toJson().toStdString();
-    return true;
-}
+#include <iostream>
 
 QJsonObject Contact::toJson() const {
-    QJsonObject obj;
-    obj["name"] = QString::fromStdString(name);
-    obj["company"] = QString::fromStdString(company);
-    obj["position"] = QString::fromStdString(position);
-    obj["phone"] = QString::fromStdString(phone);
-    obj["email"] = QString::fromStdString(email);
-    return obj;
+    QJsonObject json;
+    if (!name.empty()) {
+        json["name"] = QString::fromStdString(name);
+    }
+    if (!company.empty()) {
+        json["company"] = QString::fromStdString(company);
+    }
+    if (!position.empty()) {
+        json["position"] = QString::fromStdString(position);
+    }
+    if (!phone.empty()) {
+        json["phone"] = QString::fromStdString(phone);
+    }
+    if (!email.empty()) {
+        json["email"] = QString::fromStdString(email);
+    }
+    if (!avatar.empty()) {
+        json["avatar"] = QString::fromStdString(avatar);
+    }
+    if (!address.empty()) {
+        json["address"] = QString::fromStdString(address);
+    }
+    return json;
 }
 
 Contact Contact::fromJson(const QJsonObject& json) {
@@ -202,18 +35,181 @@ Contact Contact::fromJson(const QJsonObject& json) {
     contact.position = json["position"].toString().toStdString();
     contact.phone = json["phone"].toString().toStdString();
     contact.email = json["email"].toString().toStdString();
+    contact.avatar = json["avatar"].toString().toStdString();
+    contact.address = json["address"].toString().toStdString();
+    contact.next = nullptr;
     return contact;
 }
 
-void ContactList::updateContacts() {
+ContactList::ContactList() {
+    head = nullptr;
+}
+
+
+
+void ContactList::addContact(Contact* contact) {
+    if (head == nullptr) {
+        head = contact;
+    }
+    else {
+        Contact* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = contact;
+    }
+}
+
+void ContactList::deleteContact(std::string phone) {
+    if (head == nullptr) {
+        return;
+    }
+    if (head->phone == phone) {
+        Contact* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    else {
+        Contact* current = head;
+        while (current->next != nullptr && current->next->phone != phone) {
+            current = current->next;
+        }
+        if (current->next != nullptr) {
+            Contact* temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
+    }
+}
+
+void ContactList::editContact(std::string phone, Contact* contact) {
+    Contact* current = head;
+    while (current != nullptr && current->phone != phone) {
+        current = current->next;
+    }
+    if (current != nullptr) {
+        current->name = contact->name;
+        current->company = contact->company;
+        current->position = contact->position;
+        current->phone = contact->phone;
+        current->email = contact->email;
+        current->avatar = contact->avatar;
+        current->address = contact->address;
+    }
+}
+
+void ContactList::sortByName() {
+    if (head == nullptr || head->next == nullptr) {
+        return;
+    }
+
+    Contact* current = head;
+    Contact* nextNode = nullptr;
+    bool swapped = false;
+
+    do {
+        swapped = false;
+        current = head;
+
+        while (current->next != nextNode) {
+            if (current->name > current->next->name) {
+                std::swap(current->name, current->next->name);
+                std::swap(current->company, current->next->company);
+                std::swap(current->position, current->next->position);
+                std::swap(current->phone, current->next->phone);
+                std::swap(current->email, current->next->email);
+                std::swap(current->avatar, current->next->avatar);
+                std::swap(current->address, current->next->address);
+                swapped = true;
+            }
+            current = current->next;
+        }
+        nextNode = current;
+    } while (swapped);
+}
+
+void ContactList::sortByPhone() {
+    if (head == nullptr || head->next == nullptr) {
+        return;
+    }
+
+    Contact* current = head;
+    Contact* nextNode = nullptr;
+    bool swapped = false;
+
+    do {
+        swapped = false;
+        current = head;
+
+        while (current->next != nextNode) {
+            if (current->phone > current->next->phone) {
+                std::swap(current->name, current->next->name);
+                std::swap(current->company, current->next->company);
+                std::swap(current->position, current->next->position);
+                std::swap(current->phone, current->next->phone);
+                std::swap(current->email, current->next->email);
+                std::swap(current->avatar, current->next->avatar);
+                std::swap(current->address, current->next->address);
+                swapped = true;
+            }
+            current = current->next;
+        }
+        nextNode = current;
+    } while (swapped);
+}
+
+void ContactList::printContacts() {
     Contact* current = head;
     while (current != nullptr) {
-        Contact* next = current->next;
-        delete current;
-        current = next;
+        std::cout << "Name: " << current->name << std::endl;
+        std::cout << "Company: " << current->company << std::endl;
+        std::cout << "Position: " << current->position << std::endl;
+        std::cout << "Phone: " << current->phone << std::endl;
+        std::cout << "Email: " << current->email << std::endl;
+        std::cout << "Avatar: " << current->avatar << std::endl;
+        std::cout << "Address: " << current->address << std::endl;
+        std::cout << std::endl;
+        current = current->next;
     }
-    head = nullptr;
-    for (const Contact& contact : contacts) {
-        addContact(contact.name, contact.company, contact.position, contact.phone, contact.email);
+}
+
+bool ContactList::loadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        return false;
     }
+    std::string fileData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(QString::fromStdString(fileData).toUtf8());
+    if (!jsonDoc.isArray()) {
+        return false;
+    }
+    QJsonArray jsonArray = jsonDoc.array();
+    for (const QJsonValue& jsonValue : jsonArray) {
+        if (!jsonValue.isObject()) {
+            continue;
+        }
+        QJsonObject jsonObject = jsonValue.toObject();
+        Contact* contact = new Contact(Contact::fromJson(jsonObject));
+        addContact(contact);
+    }
+    file.close();
+    return true;
+}
+
+bool ContactList::saveToFile(const std::string& filename) {
+    QJsonArray jsonArray;
+    Contact* current = head;
+    while (current != nullptr) {
+        jsonArray.append(current->toJson());
+        current = current->next;
+    }
+    QJsonDocument jsonDoc(jsonArray);
+    QByteArray byteArray = jsonDoc.toJson();
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        return false;
+    }
+    file << byteArray.toStdString();
+    file.close();
+    return true;
 }
