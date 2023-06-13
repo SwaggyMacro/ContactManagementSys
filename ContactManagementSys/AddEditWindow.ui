@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddEditWindowClass</class>
+ <widget class="QMainWindow" name="AddEditWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>404</width>
+    <height>726</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AddEditWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#centralWidget { 
+	background-color: rgba(0, 0, 0, 1);
+	border-radius: 10px;
+	border: 1px solid black;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="avatarLabel">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>60</y>
+      <width>91</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#avatarLabel {
+	background-image: url(:/ContactManagementSys/Assets/Images/avatar.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-radius: 50%;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbNameBg">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>180</y>
+      <width>311</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbNameBg {
+    background-color: #262626;
+    border-radius: 10px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    color: white;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbName">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>180</y>
+      <width>281</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbName {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+	font-size: 14px;
+    background-image: url(:/ContactManagementSys/Assets/Images/user.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+}
+QLineEdit#tbName::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbName::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="companyBg" native="true">
+    <property name="geometry">
+     <rect>
+      <x>55</x>
+      <y>269</y>
+      <width>281</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#companyBg {
+	background-color: #262626;
+	border-radius: 15px;
+}</string>
+    </property>
+    <widget class="QLineEdit" name="tbComName">
+     <property name="geometry">
+      <rect>
+       <x>-5</x>
+       <y>-3</y>
+       <width>281</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit#tbComName {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/company.png);
+	font-size: 14px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+}
+QLineEdit#tbComName::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbComName::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="line">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>54</y>
+       <width>260</width>
+       <height>10</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#line {
+	border-top: 1px solid rgb(80, 80, 80);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="tbComPos">
+     <property name="geometry">
+      <rect>
+       <x>-6</x>
+       <y>57</y>
+       <width>281</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit#tbComPos {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/position.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+	font-size: 14px;
+    color: white;
+}
+QLineEdit#tbComPos::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbComPos::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+     </property>
+    </widget>
+    <zorder>tbComPos</zorder>
+    <zorder>tbComName</zorder>
+    <zorder>line</zorder>
+   </widget>
+   <widget class="QLineEdit" name="tbPhone">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>385</y>
+      <width>281</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbPhone {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/phone.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+	font-size: 14px;
+}
+QLineEdit#tbPhone::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbPhone::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbPhoneBg">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>385</y>
+      <width>311</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbPhoneBg {
+    background-color: #262626;
+    border-radius: 10px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    color: white;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbEmailBg">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>453</y>
+      <width>311</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbEmailBg {
+    background-color: #262626;
+    border-radius: 10px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    color: white;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbEmail">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>453</y>
+      <width>281</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbEmail {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/email.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+	font-size: 14px;
+}
+QLineEdit#tbEmail::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbEmail::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbAddressBg">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>524</y>
+      <width>311</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbAddressBg {
+    background-color: #262626;
+    border-radius: 10px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    color: white;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tbAddress">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>525</y>
+      <width>281</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#tbAddress {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/address.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+	font-size: 14px;
+}
+QLineEdit#tbAddress::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#tbAddress::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveBtn">
+    <property name="geometry">
+     <rect>
+      <x>56</x>
+      <y>627</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#saveBtn {
+	border-radius: 20px;
+	background-color: #05c474;
+	color: white;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	letter-spacing: 3px;
+	cursor: pointer;
+}
+#saveBtn::hover {
+	background-color: #069458;
+}
+#saveBtn::pressed {
+	background-color: #057546;
+}</string>
+    </property>
+    <property name="text">
+     <string>确认</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelBtn">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>630</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#cancelBtn {
+	border-radius: 20px;
+	background-color: #f21414;
+	color: white;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	letter-spacing: 3px;
+	cursor: pointer;
+}
+#cancelBtn::hover {
+	background-color: #bf1111;
+}
+#saveBtn::pressed {
+	background-color: #990e0e;
+}</string>
+    </property>
+    <property name="text">
+     <string>取消</string>
+    </property>
+   </widget>
+   <zorder>tbAddressBg</zorder>
+   <zorder>avatarLabel</zorder>
+   <zorder>tbNameBg</zorder>
+   <zorder>tbName</zorder>
+   <zorder>companyBg</zorder>
+   <zorder>tbPhoneBg</zorder>
+   <zorder>tbPhone</zorder>
+   <zorder>tbEmailBg</zorder>
+   <zorder>tbEmail</zorder>
+   <zorder>tbAddress</zorder>
+   <zorder>saveBtn</zorder>
+   <zorder>cancelBtn</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="ContactManagementSys.qrc"/>
+ </resources>
+ <connections/>
+</ui>

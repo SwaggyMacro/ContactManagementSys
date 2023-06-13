@@ -17,6 +17,11 @@
 #include <QPainter>
 #include <QPainterPath>
 #include "Pinyin.h"
+#include "AddEditWindow.h"
+
+using namespace std;
+using namespace WzhePinYin;
+
 
 using namespace std;
 using namespace WzhePinYin;
@@ -45,8 +50,21 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     dse->setColor(Qt::green);
     dse->setOffset(1, 1);
     ui.labelTitle->setGraphicsEffect(dse);
+
     ui.searchBox->setClearButtonEnabled(true);
     ui.contactTable->verticalHeader()->setDefaultSectionSize(50);
+
+    ui.addButton->setCursor(QCursor(Qt::PointingHandCursor));
+
+    // addButton 点击事件 打开AddEditWindow 不以子窗口的形式打开
+    connect(ui.addButton, &QPushButton::clicked, this, [=]() {
+		AddEditWindow* addEditWindow = new AddEditWindow();
+		addEditWindow->show();
+	});
+
+
+
+
     // contactTable 监听滚动事件，每当滚动时获取可视范围内的第一个项目的内容的第一个字母，然后跟sortLetterList中的内容比对，如果匹配则改变sortLetterList中该项目的字体颜色
 // 获取垂直滚动条
     QScrollBar* scrollBar = ui.contactTable->verticalScrollBar();
@@ -65,14 +83,14 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
         QVariant data = ui.contactTable->model()->data(index);
         // 提取该内容的第一个字母
         QString firstLetter = data.toString().left(1);
-        qDebug() << firstLetter;
+        //qDebug() << firstLetter;
         wchar_t* wstr = new wchar_t[firstLetter.length() + 1];
         firstLetter.toWCharArray(wstr);
         if (WzhePinYin::Pinyin::IsChinese(*wstr)) {
             wstr[firstLetter.length()] = L'\0';
             std::vector<std::string> pinyins = WzhePinYin::Pinyin::GetPinyins(*wstr);
             firstLetter = QString::fromStdString(pinyins[0]).left(1);
-            qDebug() << firstLetter;
+           // qDebug() << firstLetter;
 		}
 
         // 比对sortLetterList中的内容
@@ -118,6 +136,9 @@ void ContactManagementSys::insertShuffleData() {
     ui.contactTable->horizontalHeader()->setVisible(false);
     ui.contactTable->verticalHeader()->setVisible(false);
     ui.contactTable->setFocusPolicy(Qt::NoFocus);
+    ui.contactTable->setColumnWidth(0, ui.contactTable->width() - 130);
+    
+
     
     // insert a-z and # to sortLetterList
     QStringList sortLetterList;

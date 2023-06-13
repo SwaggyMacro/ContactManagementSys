@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>429</width>
-    <height>660</height>
+    <height>748</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#centralWidget { 
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: rgba(0, 0, 0, 1);
 	border-radius: 10px;
 	border: 1px solid black;
 }</string>
@@ -50,7 +50,7 @@
       <x>0</x>
       <y>90</y>
       <width>431</width>
-      <height>570</height>
+      <height>641</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -63,18 +63,14 @@
 	padding: 10px;
 	font-family: Microsoft Yahei;
 	font-size: 16px;
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-#contactTable::frame {
-	border: 1px solid black;
+	letter-spacing: 10px;
 }
 #contactTable QHeaderView::section {
 	background-color: transparent;
     border: none;
 }
-#contactTable:item {
-	border-bottom: 1px solid gray;
+QTableView#contactTable:item {
+	border-bottom: 1px solid rgb(32, 31, 31);
 	width: 400px;
 }
 #contactTable::item:hover {
@@ -232,11 +228,36 @@ QLineEdit#searchBox::clearButton:hover {
 }</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>630</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#addButton {
+	background-color: #05c474;
+	border-radius: 20px;
+	padding: 20px;
+	background-image: url(:/ContactManagementSys/Assets/Images/new_25_w.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}</string>
+    </property>
+    <property name="text">
+     <string>add</string>
+    </property>
+   </widget>
    <zorder>searchBoxBg</zorder>
    <zorder>labelTitle</zorder>
    <zorder>contactTable</zorder>
    <zorder>sortLetterList</zorder>
    <zorder>searchBox</zorder>
+   <zorder>addButton</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

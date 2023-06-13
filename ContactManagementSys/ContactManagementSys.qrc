@@ -1,8 +1,22 @@
 <RCC>
   <qresource prefix="ContactManagementSys">
+    <file>Assets/Images/icon_confirm.png</file>
+    <file>Assets/Images/icon_cancel.png</file>
+    <file>Assets/Images/icon_confirm_32.png</file>
+    <file>Assets/Images/email.png</file>
+    <file>Assets/Images/address.png</file>
+    <file>Assets/Images/phone.png</file>
+    <file>Assets/Images/position.png</file>
+    <file>Assets/Images/company.png</file>
+    <file>Assets/Images/user.png</file>
+    <file>Assets/Images/new_25_w.png</file>
+    <file>Assets/Images/new_32.png</file>
+    <file>Assets/Images/new.png</file>
+    <file>Assets/Images/new_16.png</file>
     <file>Assets/Images/save.jpg</file>
     <file>Assets/Images/delete_fill.png</file>
     <file>Assets/Images/delete_fill_hover.png</file>
     <file>Assets/Images/search.png</file>
+    <file>Assets/Images/avatar.jpg</file>
   </qresource>
 </RCC>

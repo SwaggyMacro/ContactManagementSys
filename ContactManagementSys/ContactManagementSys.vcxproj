@@ -83,8 +83,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddEditWindow.cpp" />
     <ClCompile Include="Pinyin.cpp" />
     <QtRcc Include="ContactManagementSys.qrc" />
+    <QtUic Include="AddEditWindow.ui" />
     <QtUic Include="MainWindow.ui" />
     <QtMoc Include="ContactManagementSys.h" />
     <ClCompile Include="Contact.cpp" />
@@ -94,6 +96,7 @@
     <ResourceCompile Include="ContactManagementSys.rc" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="AddEditWindow.h" />
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Pinyin.h" />
   </ItemGroup>
