@@ -4,6 +4,7 @@
 #include <fstream>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <qfile.h>
 
 using namespace std;
 
@@ -147,11 +148,14 @@ void ContactList::printContacts() {
 }
 
 bool ContactList::loadFromFile(const string& filename) {
-    ifstream file(filename);
-    if (!file.is_open()) {
+    QFile file(QString::fromStdString(filename));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return false;
     }
-    QJsonDocument doc = QJsonDocument::fromJson(file);
+    QByteArray fileContent = file.readAll();
+    file.close();
+
+    QJsonDocument doc = QJsonDocument::fromJson(fileContent);
     if (!doc.isArray()) {
         return false;
     }
@@ -162,7 +166,7 @@ bool ContactList::loadFromFile(const string& filename) {
         Contact contact = Contact::fromJson(obj);
         contacts.push_back(contact);
     }
-    updateContacts();
+    updateContacts(); 
     return true;
 }
 
