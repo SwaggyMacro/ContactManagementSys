@@ -1805,82 +1805,10 @@
         "phone": "+1 6645812315"
     },
     {
-        "address": "北京市 海淀区 朝阳路1号",
-        "avatar": "Assets/Images/Crop/avatar_1686836125.jpg",
-        "company": "斯坦福",
-        "email": "2110282187@qq.com",
-        "name": "劳俊源",
-        "phone": "13415206517",
-        "position": "江南大盗"
-    },
-    {
         "avatar": "Assets/Images/Crop/avatar.jpg",
         "company": "想吃嘉然小姐的贡品",
         "name": "A 王喜顺",
         "phone": "+86 13888888888",
         "position": "贡品消灭者"
-    },
-    {
-        "address": "武鸣校区 6#435",
-        "avatar": "Assets/Images/Crop/avatar_1686835955.jpg",
-        "company": "广西民族大学",
-        "email": "1352833436@qq.com",
-        "name": "陈立创",
-        "phone": "18807713426",
-        "position": "学生"
-    },
-    {
-        "address": "江南大道1号1栋",
-        "avatar": "Assets/Images/Crop/avatar_1686836594.jpg",
-        "company": "广西民族大学",
-        "email": "1025315703@qq.com",
-        "name": "黄全锐",
-        "phone": "19195707180",
-        "position": "学生"
-    },
-    {
-        "address": "京海市 白金瀚夜总会",
-        "avatar": "Assets/Images/Crop/avatar_1686836193.jpg",
-        "company": "白金瀚夜总会",
-        "email": "macro@julym.com",
-        "name": "王宏哲",
-        "phone": "18589945812",
-        "position": "总经理"
-    },
-    {
-        "address": "南宁市 兴宁区 朝阳路1号",
-        "avatar": "Assets/Images/Crop/avatar_1686836453.jpg",
-        "company": "广西民族大学",
-        "email": "383769489@qq.com",
-        "name": "én ěn èn",
-        "phone": "13737031081",
-        "position": "心理委员"
-    },
-    {
-        "address": "京海市 匿",
-        "avatar": "Assets/Images/Crop/avatar_1686836499.jpg",
-        "company": "京海建工集团",
-        "email": "498791444@qq.com",
-        "name": "甘楚沨",
-        "phone": "17687551145",
-        "position": "董事长"
-    },
-    {
-        "address": "南宁市 北湖北路 人和公园溪府",
-        "avatar": "Assets/Images/Crop/avatar_1686836612.jpg",
-        "company": "南宁小租配骑机车租赁有限公司",
-        "email": "2453378732@qq.com",
-        "name": "黄志航",
-        "phone": "17877188135",
-        "position": "董事长"
-    },
-    {
-        "address": "南宁市 西乡塘区 清川大桥 整桥",
-        "avatar": "Assets/Images/Crop/avatar_1686836733.jpg",
-        "company": "莽村拆迁",
-        "email": "1301109088@qq.com",
-        "name": "乐喜云",
-        "phone": "18878834119",
-        "position": "无业游民"
     }
 ]
