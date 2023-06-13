@@ -8,6 +8,24 @@
 #include <QPainterPath>
 #include <QGraphicsDropShadowEffect>
 #include <QMouseEvent>
+#include <QScrollBar>
+#include <QAbstractItemModel>
+#include <QVariant>
+#include "Contact.h"
+#include <QGraphicsDropShadowEffect>
+#include <QVBoxLayout>
+#include <QtWidgets>
+#include <qlistview.h>
+#include <qlabel.h>
+#include <qtextdocumentfragment.h>
+#include <qimage.h>
+#include <qicon.h>
+#include <qpixmap.h>
+#include <QModelIndex>
+#include <QPainterPath>
+#include "Pinyin.h"
+#include <qicon.h>
+
 
 class ContactManagementSys : public QMainWindow
 {
@@ -16,12 +34,19 @@ class ContactManagementSys : public QMainWindow
 public:
     ContactManagementSys(QWidget *parent = nullptr);
     void insertShuffleData();
+    void loadData();
+    void insertRow(Contact *contact);
     ~ContactManagementSys();
 
 private:
     Ui::ContactManagementSysClass ui;
     bool m_dragging = false;
     QPoint m_dragPos;
+
+private slots:
+    void onScrollBarValueChanged(int value);
+    void onAddBtnClicked();
+
 protected:
 
     void mousePressEvent(QMouseEvent* event) override

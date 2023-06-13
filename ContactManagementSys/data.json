@@ -1,6 +1,18 @@
 [
     {
         "avatar": "Assets/Images/Crop/avatar.jpg",
+        "company": "民大",
+        "email": "1@w.w",
+        "name": "陈立�?,
+        "phone": "+8618589945812"
+    },
+    {
+        "avatar": "Assets/Images/Crop/avatar.jpg",
+        "name": "1",
+        "phone": "1"
+    },
+    {
+        "avatar": "Assets/Images/Crop/avatar.jpg",
         "name": "1",
         "phone": "1"
     }

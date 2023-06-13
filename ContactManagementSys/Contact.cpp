@@ -213,3 +213,35 @@ bool ContactList::saveToFile(const std::string& filename) {
     file.close();
     return true;
 }
+
+Contact* ContactList::getHead() {
+	return head;
+}    obj["company"] = QString::fromStdString(company);
+    obj["position"] = QString::fromStdString(position);
+    obj["phone"] = QString::fromStdString(phone);
+    obj["email"] = QString::fromStdString(email);
+    return obj;
+}
+
+Contact Contact::fromJson(const QJsonObject& json) {
+    Contact contact;
+    contact.name = json["name"].toString().toStdString();
+    contact.company = json["company"].toString().toStdString();
+    contact.position = json["position"].toString().toStdString();
+    contact.phone = json["phone"].toString().toStdString();
+    contact.email = json["email"].toString().toStdString();
+    return contact;
+}
+
+void ContactList::updateContacts() {
+    Contact* current = head;
+    while (current != nullptr) {
+        Contact* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = nullptr;
+    for (const Contact& contact : contacts) {
+        addContact(contact.name, contact.company, contact.position, contact.phone, contact.email);
+    }
+}

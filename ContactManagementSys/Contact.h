@@ -32,6 +32,7 @@ public:
     void printContacts();
     bool loadFromFile(const std::string& filename);
     bool saveToFile(const std::string& filename);
+    Contact* getHead();
 
 private:
     Contact* head;

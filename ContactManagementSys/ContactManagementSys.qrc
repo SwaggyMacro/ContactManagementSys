@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="ContactManagementSys">
+    <file>Assets/Images/delete.png</file>
+    <file>Assets/Images/edit.png</file>
     <file>Assets/Images/icon_confirm.png</file>
     <file>Assets/Images/icon_cancel.png</file>
     <file>Assets/Images/icon_confirm_32.png</file>
