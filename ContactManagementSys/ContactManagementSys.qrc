@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="ContactManagementSys">
     <file>Assets/Images/save.jpg</file>
+    <file>Assets/Images/delete_fill.png</file>
+    <file>Assets/Images/delete_fill_hover.png</file>
+    <file>Assets/Images/search.png</file>
   </qresource>
 </RCC>

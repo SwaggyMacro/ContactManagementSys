@@ -1,6 +1,4 @@
-#ifndef CONTACT_H
-#define CONTACT_H
-
+#pragma once
 #include <string>
 #include <vector>
 #include <QJsonObject>
@@ -39,4 +37,3 @@ private:
     void updateContacts();
 };
 
-#endif // CONTACT_H

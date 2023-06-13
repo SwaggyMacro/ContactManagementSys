@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Pinyin.cpp" />
     <QtRcc Include="ContactManagementSys.qrc" />
     <QtUic Include="MainWindow.ui" />
     <QtMoc Include="ContactManagementSys.h" />
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Contact.h" />
+    <ClInclude Include="Pinyin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
-    <height>572</height>
+    <width>429</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,9 +48,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>60</y>
+      <y>90</y>
       <width>431</width>
-      <height>491</height>
+      <height>570</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -59,10 +59,26 @@
 	background-color: black;
     border: none;
 	color: white;
+	border-radius: 10px;
+	padding: 10px;
+	font-family: Microsoft Yahei;
+	font-size: 16px;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#contactTable::frame {
+	border: 1px solid black;
 }
 #contactTable QHeaderView::section {
 	background-color: transparent;
     border: none;
+}
+#contactTable:item {
+	border-bottom: 1px solid gray;
+	width: 400px;
+}
+#contactTable::item:hover {
+	color: #1d81c4;
 }
 QTableView::item:selected{
 	background-color: rgba(255, 255, 255, 0);
@@ -110,10 +126,10 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
    <widget class="QListView" name="sortLetterList">
     <property name="geometry">
      <rect>
-      <x>361</x>
-      <y>110</y>
+      <x>360</x>
+      <y>160</y>
       <width>16</width>
-      <height>381</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -125,6 +141,9 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 	font-size: 10px;
 	padding: 0px;
 	margin: 0px;
+	font-family: Microsoft Yahei;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 #sortLetterList::item {
     border: none;
@@ -162,6 +181,62 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="searchBox">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>50</y>
+      <width>391</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#searchBox {
+    background-color: transparent;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    background-image: url(:/ContactManagementSys/Assets/Images/search.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    color: white;
+}
+QLineEdit#searchBox::clearButton {
+	position: right;
+	margin-left: -30px;
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill.png);
+}
+QLineEdit#searchBox::clearButton:hover {
+    background-image: url(:/ContactManagementSys/Assets/Images/delete_fill_hover.png);
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="searchBoxBg">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>50</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#searchBoxBg {
+    background-color: #181918;
+    border-radius: 15px;
+    margin: 15px;
+    font-family: Microsoft Yahei;
+    color: white;
+}</string>
+    </property>
+   </widget>
+   <zorder>searchBoxBg</zorder>
+   <zorder>labelTitle</zorder>
+   <zorder>contactTable</zorder>
+   <zorder>sortLetterList</zorder>
+   <zorder>searchBox</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
