@@ -135,7 +135,7 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
    }
 
 void ContactManagementSys::onTableViewItemCountChanged() {
-	ui.labelCount->setText("总数: " + QString::number(model->rowCount()));
+	ui.labelCount->setText(QString::number(model->rowCount()) + " 已找到");
 }
 
 void ContactManagementSys::onSortLetterListItemClicked(const QModelIndex& index) {
@@ -193,7 +193,7 @@ void  ContactManagementSys::onSearchBoxTextChanged(const QString& text) {
 			ui.contactTable->hideRow(i);
 		}
 	}
-    ui.labelCount->setText("总数: " + QString::number(count));
+    ui.labelCount->setText(QString::number(model->rowCount()) + " 已找到");
 }
 
 void ContactManagementSys::onAddBtnClicked() {

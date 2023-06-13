@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>429</width>
-    <height>769</height>
+    <height>761</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>110</y>
+      <y>107</y>
       <width>431</width>
       <height>641</height>
      </rect>
@@ -126,7 +126,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>190</y>
+      <y>187</y>
       <width>16</width>
       <height>441</height>
      </rect>
@@ -235,7 +235,7 @@ QLineEdit#searchBox::clearButton:hover {
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>650</y>
+      <y>647</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -259,7 +259,7 @@ QLineEdit#searchBox::clearButton:hover {
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>100</y>
+      <y>102</y>
       <width>361</width>
       <height>16</height>
      </rect>
@@ -269,7 +269,7 @@ QLineEdit#searchBox::clearButton:hover {
 font-family: Microsoft Yahei</string>
     </property>
     <property name="text">
-     <string>总数: 0</string>
+     <string>0 已找到</string>
     </property>
    </widget>
    <zorder>searchBoxBg</zorder>
