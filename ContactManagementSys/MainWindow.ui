@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>429</width>
-    <height>748</height>
+    <height>769</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,6 +21,9 @@
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QLabel" name="labelTitle">
     <property name="geometry">
      <rect>
@@ -48,7 +51,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>90</y>
+      <y>110</y>
       <width>431</width>
       <height>641</height>
      </rect>
@@ -63,7 +66,7 @@
 	padding: 10px;
 	font-family: Microsoft Yahei;
 	font-size: 16px;
-	letter-spacing: 10px;
+	letter-spacing: 7px;
 }
 #contactTable QHeaderView::section {
 	background-color: transparent;
@@ -123,7 +126,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>160</y>
+      <y>190</y>
       <width>16</width>
       <height>441</height>
      </rect>
@@ -232,7 +235,7 @@ QLineEdit#searchBox::clearButton:hover {
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>630</y>
+      <y>650</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -252,12 +255,30 @@ QLineEdit#searchBox::clearButton:hover {
      <string>add</string>
     </property>
    </widget>
+   <widget class="QLabel" name="labelCount">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>361</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(132, 132, 132);
+font-family: Microsoft Yahei</string>
+    </property>
+    <property name="text">
+     <string>总数: 0</string>
+    </property>
+   </widget>
    <zorder>searchBoxBg</zorder>
    <zorder>labelTitle</zorder>
    <zorder>contactTable</zorder>
    <zorder>sortLetterList</zorder>
    <zorder>searchBox</zorder>
    <zorder>addButton</zorder>
+   <zorder>labelCount</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

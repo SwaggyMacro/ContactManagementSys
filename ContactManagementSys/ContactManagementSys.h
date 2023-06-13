@@ -33,9 +33,8 @@ class ContactManagementSys : public QMainWindow
 
 public:
     ContactManagementSys(QWidget *parent = nullptr);
-    void insertShuffleData();
+    void initLetterList();
     void loadData();
-    void hideColumn(QTableView* table, int column);
     void insertRow(Contact *contact);
     ~ContactManagementSys();
 
@@ -49,6 +48,8 @@ private slots:
     void onScrollBarValueChanged(int value);
     void onAddBtnClicked();
     void onSearchBoxTextChanged(const QString& text);
+    void onSortLetterListItemClicked(const QModelIndex& index);
+    void onTableViewItemCountChanged();
 
 protected:
 

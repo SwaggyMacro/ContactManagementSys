@@ -116,35 +116,93 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     connect(ui.addButton, &QPushButton::clicked, this, &ContactManagementSys::onAddBtnClicked);
     connect(ui.contactTable->verticalScrollBar(), &QScrollBar::valueChanged, this, &ContactManagementSys::onScrollBarValueChanged);
 
-    insertShuffleData();
-    loadData();
+    onScrollBarValueChanged(0);
 
-    hideColumn(ui.contactTable, 1);
-
+    ui.contactTable->setColumnHidden(1, true);
     // searchBox textChanged and search in tableview
     connect(ui.searchBox, &QLineEdit::textChanged, this, &ContactManagementSys::onSearchBoxTextChanged);
 
+    // sortLetterList(ListView) item click event
+    connect(ui.sortLetterList, &QListView::clicked, this, &ContactManagementSys::onSortLetterListItemClicked);
 
+    // tableview item count changed event
+    connect(model, &QStandardItemModel::rowsInserted, this, &ContactManagementSys::onTableViewItemCountChanged);
+    connect(model, &QStandardItemModel::rowsRemoved, this, &ContactManagementSys::onTableViewItemCountChanged);
+
+    initLetterList();
+    loadData();
+
+   }
+
+void ContactManagementSys::onTableViewItemCountChanged() {
+	ui.labelCount->setText("总数: " + QString::number(model->rowCount()));
+}
+
+void ContactManagementSys::onSortLetterListItemClicked(const QModelIndex& index) {
+    qDebug() << "sortLetterList item clicked:" << index.data().toString();
+	QString letter = index.data().toString();
+    for (int i = 0; i < model->rowCount(); i++) {
+		QString name = model->data(model->index(i, 0)).toString().toUpper();
+        wchar_t* wstrName = new wchar_t[name.length() + 1];
+        name.toWCharArray(wstrName);
+        if (WzhePinYin::Pinyin::IsChinese(*wstrName)) {
+			wstrName[name.length()] = L'\0';
+			std::vector<std::string> pinyins = WzhePinYin::Pinyin::GetPinyins(*wstrName);
+			name = QString::fromStdString(pinyins[0]);
+        }
+        if (name.startsWith(letter)) {
+            ui.contactTable->scrollTo(model->index(i, 0));
+        }
+        else {
+            // 取消选中状态
+            ui.sortLetterList->selectionModel()->clearSelection();
+        }
+	}
 }
 
 void  ContactManagementSys::onSearchBoxTextChanged(const QString& text) {
+    int count = 0;
 	qDebug() << "search text changed:" << text;
     // search from the contact table
     for (int i = 0; i < model->rowCount(); i++) {
-		QString name = model->data(model->index(i, 0)).toString();
+        bool isChinese = false;
+
+        QString name = model->data(model->index(i, 0)).toString();
 		QString phone = model->data(model->index(i, 1)).toString();
-        if (name.contains(text) || phone.contains(text)) {
+        
+        wchar_t* wstrName = new wchar_t[name.length() + 1];
+        name.toWCharArray(wstrName);
+        
+        if (Pinyin::IsChinese(*wstrName)) {
+            QRegularExpression re("^[\u4e00-\u9fa5]+$");
+            QRegularExpressionMatch match = re.match(text);
+
+            // if the text is chinese, then search the chinese name, or convert to pinyin letters.
+            if (!match.hasMatch()) {
+                isChinese = true;
+                std::vector<std::string> pinyins = WzhePinYin::Pinyin::GetPinyins(*wstrName);
+                name = QString::fromStdString(pinyins[0]).toLower();
+            }
+        }
+
+        if (name.contains(isChinese ? text.toLower() : text) || phone.contains(isChinese ? text.toLower() : text)) {
 			ui.contactTable->showRow(i);
+            count++;
 		}
         else {
 			ui.contactTable->hideRow(i);
 		}
 	}
+    ui.labelCount->setText("总数: " + QString::number(count));
 }
 
 void ContactManagementSys::onAddBtnClicked() {
     AddEditWindow* addEditWindow = new AddEditWindow();
 	addEditWindow->show();
+    connect(addEditWindow, &AddEditWindow::windowClosed, [&]() {
+        qDebug() << "Window closed, reload data.";
+        loadData();
+    });
 }
 
 /// <summary>
@@ -158,17 +216,15 @@ void ContactManagementSys::loadData() {
     ContactList contactList;
     contactList.loadFromFile("data.json");
     Contact* contact = contactList.getHead();
+    contactList.sortByName();
     while (contact != nullptr) {
         insertRow(contact);
         if (contact->next == nullptr) break;
         contact = contact->next;
 	}
+    onTableViewItemCountChanged();
 }
 
-
-void ContactManagementSys::hideColumn(QTableView* table, int column) {
-	table->setColumnHidden(column, true);
-}
 
 /// <summary>
 /// insert row to the contact table
@@ -231,7 +287,7 @@ void ContactManagementSys::onScrollBarValueChanged(int value) {
     // get the data of the index
     QVariant data = ui.contactTable->model()->data(index);
     // get the first letter of the data
-    QString firstLetter = data.toString().left(1);
+    QString firstLetter = data.toString().left(1).toUpper();
 
     wchar_t* wstr = new wchar_t[firstLetter.length() + 1];
     firstLetter.toWCharArray(wstr);
@@ -244,21 +300,32 @@ void ContactManagementSys::onScrollBarValueChanged(int value) {
     }
 
     QAbstractItemModel* model = ui.sortLetterList->model();
+    // get the last index of the sortLetterList
+    QModelIndex otherIndex = model->index(model->rowCount() - 1, 0);
+
     for (int i = 0; i < model->rowCount(); i++) {
         QModelIndex index = model->index(i, 0);
         QVariant data = model->data(index);
         QString letter = data.toString().left(1);
+        
+
         if (letter == firstLetter) {
             model->setData(index, QColor("#1d81c4"), Qt::ForegroundRole);
         }
         else {
             model->setData(index, QColor("#848484"), Qt::ForegroundRole);
+            if (!QString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").contains(firstLetter.toUpper())) {
+				model->setData(otherIndex, QColor("#1d81c4"), Qt::ForegroundRole);
+            }
+            else {
+                model->setData(otherIndex, QColor("#848484"), Qt::ForegroundRole);
+            }
         }
     }
 }
 
 
-void ContactManagementSys::insertShuffleData() {
+void ContactManagementSys::initLetterList() {
     QStringList sortLetterList;
     sortLetterList << "A" << "B" << "C" << "D" << "E" << "F" << "G" << "H"
 		<< "I" << "J" << "K" << "L" << "M" << "N" << "O" << "P"

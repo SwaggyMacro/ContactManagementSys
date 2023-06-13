@@ -4,6 +4,11 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include "Pinyin.h"
+#include <qstring.h>
+#include <fstream>
+#include <iostream>
+
 
 class Contact {
 public:
