@@ -15,6 +15,7 @@ class AddEditWindow : public QMainWindow
 
 public:
 	AddEditWindow(QWidget *parent = nullptr);
+    bool isValidEmail(const QString& email);
 	~AddEditWindow();
 
 private:
@@ -48,5 +49,10 @@ protected:
             m_dragging = false;
         }
     }
+
+private slots:
+    void onChooseAvatarBtnClicked();
+    void onCancelBtnClicked();
+    void onConfirmBtnClicked();
 };
 

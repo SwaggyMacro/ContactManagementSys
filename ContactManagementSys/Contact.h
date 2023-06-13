@@ -10,6 +10,8 @@ public:
     std::string position;
     std::string phone;
     std::string email;
+    std::string avatar;
+    std::string address;
     Contact* next;
 
     QJsonObject toJson() const;

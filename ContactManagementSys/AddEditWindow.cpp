@@ -4,6 +4,10 @@
 #include "qsize.h"
 #include "qrect.h"
 #include "qpoint.h"
+#include <qfiledialog.h>
+#include <qsettings.h>
+#include <qmessagebox.h>
+#include <qregularexpression.h>
 
 
 AddEditWindow::AddEditWindow(QWidget *parent)
@@ -49,6 +53,62 @@ AddEditWindow::AddEditWindow(QWidget *parent)
 	ui.cancelBtn->setCursor(QCursor(Qt::PointingHandCursor));
 
 	ui.avatarLabel->setCursor(QCursor(Qt::PointingHandCursor));
+
+	ui.chooseAvatarBtn->setCursor(QCursor(Qt::PointingHandCursor));
+
+	connect(ui.chooseAvatarBtn, SIGNAL(clicked()), this, SLOT(onChooseAvatarBtnClicked()));
+	connect(ui.cancelBtn, SIGNAL(clicked()), this, SLOT(onCancelBtnClicked()));
+	connect(ui.saveBtn, SIGNAL(clicked()), this, SLOT(onConfirmBtnClicked()));
+}
+
+void AddEditWindow::onCancelBtnClicked()
+{
+	this->close();
+}
+
+void AddEditWindow::onChooseAvatarBtnClicked() {
+	QString lastPath = QSettings().value("lastPath").toString();
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), lastPath, tr("Image Files (*.png *.jpg *.bmp)"));
+	if (fileName != "")
+	{
+		QPixmap avatarImg(fileName);
+		QPixmap fitpixmap = avatarImg.scaled(ui.avatarLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		std::string timestamp = std::to_string(std::time(nullptr));
+		std::string path = "Assets/Images/Crop/avatar_" + timestamp + ".jpg";
+		fitpixmap.save(path.c_str());
+		ui.avatarLabel->setStyleSheet(("background-image: url(" + QString(path.c_str()) + "); background-repeat: no-repeat; background-position: center center; border-radius: 45px;").toStdString().c_str());
+	}
+}
+
+void AddEditWindow::onConfirmBtnClicked() {
+	if (ui.tbName->text().isEmpty()) {
+		QMessageBox::warning(this, "Warning", "姓名不能为空！");
+		return;
+	}
+	if (ui.tbPhone->text().isEmpty()) {
+		QMessageBox::warning(this, "Warning", "联系电话不能为空！");
+		return;
+	}
+	else {
+		QRegularExpression regex(R"((\d+))");
+		QRegularExpressionMatch match = regex.match(ui.tbPhone->text());
+		if (!match.hasMatch()) {
+			QMessageBox::warning(this, "Warning", "联系电话格式不正确！");
+			return;
+		}
+	}
+	if (!ui.tbEmail->text().isEmpty()) {
+		if (!isValidEmail(ui.tbEmail->text())) {
+			QMessageBox::warning(this, "Warning", "邮箱格式不正确！");
+			return;
+		}
+	}
+}
+
+bool AddEditWindow::isValidEmail(const QString& email) {
+	QRegularExpression regex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
+	QRegularExpressionMatch match = regex.match(email);
+	return match.hasMatch();
 }
 
 AddEditWindow::~AddEditWindow()

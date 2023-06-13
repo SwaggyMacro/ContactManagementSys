@@ -17,6 +17,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include "Pinyin.h"
+#include <qicon.h>
 #include "AddEditWindow.h"
 
 using namespace std;
@@ -126,8 +127,24 @@ void ContactManagementSys::insertShuffleData() {
 		QStandardItem* item = new QStandardItem();
         QString name = strChinese[rand() % 100] + strChinese[rand() % 100];
 		item->setText(name);
-		model->appendRow(item);
+        QStandardItem* item2 = new QStandardItem();
+        QPixmap pixmap(":/ContactManagementSys/Assets/Images/phone.png");
+        QIcon icon(pixmap);
+        item2->setIcon(icon);
+        QList<QStandardItem*> row;
+        row << item << item2;
+		model->appendRow(row);
 	}
+    //ui.contactTable->setModel(model);
+    //ui.contactTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //ui.contactTable->setShowGrid(false);
+    //ui.contactTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    //// set header invisible
+    //ui.contactTable->horizontalHeader()->setVisible(false);
+    //ui.contactTable->verticalHeader()->setVisible(false);
+    //ui.contactTable->setFocusPolicy(Qt::NoFocus);
+    //ui.contactTable->setColumnWidth(0, ui.contactTable->width() - 130);
+    
     ui.contactTable->setModel(model);
     ui.contactTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.contactTable->setShowGrid(false);
@@ -137,8 +154,7 @@ void ContactManagementSys::insertShuffleData() {
     ui.contactTable->verticalHeader()->setVisible(false);
     ui.contactTable->setFocusPolicy(Qt::NoFocus);
     ui.contactTable->setColumnWidth(0, ui.contactTable->width() - 130);
-    
-
+    ui.contactTable->setColumnWidth(1, 100);
     
     // insert a-z and # to sortLetterList
     QStringList sortLetterList;
@@ -154,6 +170,7 @@ void ContactManagementSys::insertShuffleData() {
         item->setText(sortLetterList.at(i));
         sortLetterModel->appendRow(item);
     }
+
     ui.sortLetterList->setModel(sortLetterModel);
     ui.sortLetterList->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.sortLetterList->setSelectionMode(QAbstractItemView::SingleSelection);

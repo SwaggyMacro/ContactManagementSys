@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>404</width>
+    <width>399</width>
     <height>726</height>
    </rect>
   </property>
@@ -425,6 +425,24 @@ QLineEdit#tbAddress::clearButton:hover {
      <string>取消</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="chooseAvatarBtn">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>50</y>
+      <width>131</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#chooseAvatarBtn {
+	background-color: transparent;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>tbAddressBg</zorder>
    <zorder>avatarLabel</zorder>
    <zorder>tbNameBg</zorder>
@@ -437,6 +455,7 @@ QLineEdit#tbAddress::clearButton:hover {
    <zorder>tbAddress</zorder>
    <zorder>saveBtn</zorder>
    <zorder>cancelBtn</zorder>
+   <zorder>chooseAvatarBtn</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
