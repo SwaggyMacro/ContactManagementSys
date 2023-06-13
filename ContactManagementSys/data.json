@@ -2,8 +2,22 @@
     {
         "avatar": "Assets/Images/Crop/avatar.jpg",
         "company": "民大",
+        "name": "陈立创",
+        "phone": "17777374296",
+        "position": "学生"
+    },
+    {
+        "avatar": "Assets/Images/Crop/avatar.jpg",
+        "company": "民大",
+        "name": "王宏哲",
+        "phone": "18589945812",
+        "position": "学生"
+    },
+    {
+        "avatar": "Assets/Images/Crop/avatar.jpg",
+        "company": "民大",
         "email": "1@w.w",
-        "name": "陈立�?,
+        "name": "陈立",
         "phone": "+8618589945812"
     },
     {

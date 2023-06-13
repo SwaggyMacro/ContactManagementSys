@@ -35,6 +35,7 @@ public:
     ContactManagementSys(QWidget *parent = nullptr);
     void insertShuffleData();
     void loadData();
+    void hideColumn(QTableView* table, int column);
     void insertRow(Contact *contact);
     ~ContactManagementSys();
 
@@ -42,6 +43,7 @@ private:
     Ui::ContactManagementSysClass ui;
     bool m_dragging = false;
     QPoint m_dragPos;
+    QStandardItemModel* model = nullptr;
 
 private slots:
     void onScrollBarValueChanged(int value);
