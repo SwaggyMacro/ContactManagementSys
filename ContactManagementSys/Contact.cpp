@@ -62,29 +62,28 @@ void ContactList::addContact(Contact* contact) {
 
 void ContactList::deleteContact(std::string phone) {
     if (head == nullptr) {
-        return;
-    }
+		return;
+	}
     if (head->phone == phone) {
-        Contact* temp = head;
-        head = head->next;
-        delete temp;
-    }
-    else {
-        Contact* current = head;
-        while (current->next != nullptr && current->next->phone != phone) {
-            current = current->next;
-        }
-        if (current->next != nullptr) {
-            Contact* temp = current->next;
-            current->next = current->next->next;
-            delete temp;
-        }
-    }
+		Contact* temp = head;
+		head = head->next;
+		delete temp;
+		return;
+	}
+	Contact* current = head;
+    while (current->next != nullptr && current->next->phone != phone) {
+		current = current->next;
+	}
+    if (current->next != nullptr) {
+		Contact* temp = current->next;
+		current->next = current->next->next;
+		delete temp;
+	}
 }
 
-void ContactList::editContact(std::string phone, Contact* contact) {
+void ContactList::editContact(Contact* contact) {
     Contact* current = head;
-    while (current != nullptr && current->phone != phone) {
+    while (current != nullptr && current->phone != contact->phone) {
         current = current->next;
     }
     if (current != nullptr) {
@@ -173,6 +172,18 @@ void ContactList::printContacts() {
     }
 }
 
+bool ContactList::isContactExists(std::string phone) {
+    Contact* current = head;
+    while (current != nullptr) {
+        if (current->phone == phone) {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+
 bool ContactList::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -216,4 +227,12 @@ bool ContactList::saveToFile(const std::string& filename) {
 
 Contact* ContactList::getHead() {
 	return head;
+}
+
+Contact* ContactList::getContactByPhone(std::string phone) {
+	Contact* current = head;
+    while (current != nullptr && current->phone != phone) {
+		current = current->next;
+	}
+	return current;
 }

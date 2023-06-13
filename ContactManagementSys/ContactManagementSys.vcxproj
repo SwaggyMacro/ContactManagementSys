@@ -84,20 +84,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddEditWindow.cpp" />
+    <ClCompile Include="MyQTableView.cpp" />
     <ClCompile Include="Pinyin.cpp" />
     <QtRcc Include="ContactManagementSys.qrc" />
     <QtUic Include="AddEditWindow.ui" />
     <QtUic Include="MainWindow.ui" />
     <QtMoc Include="ContactManagementSys.h" />
     <ClCompile Include="Contact.cpp" />
-    <ClCompile Include="ContactManagementSys.cpp" />
+    <ClCompile Include="ContactManagementSys.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <None Include="ContactManagementSys.ico" />
+    <QtUic Include="MyQTableView.ui" />
     <ResourceCompile Include="ContactManagementSys.rc" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AddEditWindow.h" />
     <ClInclude Include="Contact.h" />
+    <QtMoc Include="MyQTableView.h" />
     <ClInclude Include="Pinyin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

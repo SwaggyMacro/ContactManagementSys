@@ -26,13 +26,15 @@ public:
 
     void addContact(Contact* contact);
     void deleteContact(std::string phone);
-    void editContact(std::string phone, Contact* contact);
+    void editContact(Contact* contact);
     void sortByName();
     void sortByPhone();
     void printContacts();
+    bool isContactExists(std::string phone);
     bool loadFromFile(const std::string& filename);
     bool saveToFile(const std::string& filename);
     Contact* getHead();
+    Contact* getContactByPhone(std::string phone);
 
 private:
     Contact* head;

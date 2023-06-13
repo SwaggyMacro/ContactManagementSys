@@ -11,9 +11,10 @@
 #include "Contact.h"
 
 
-AddEditWindow::AddEditWindow(QWidget *parent)
+AddEditWindow::AddEditWindow(QWidget *parent, int type, QString phone)
 	: QMainWindow(parent)
 {
+	this->type = type;
 	ui.setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground);
@@ -53,6 +54,9 @@ AddEditWindow::AddEditWindow(QWidget *parent)
 	ui.saveBtn->setCursor(QCursor(Qt::PointingHandCursor));
 	ui.cancelBtn->setCursor(QCursor(Qt::PointingHandCursor));
 
+	ui.saveBtn->setFocusPolicy(Qt::NoFocus);
+	ui.cancelBtn->setFocusPolicy(Qt::NoFocus);
+
 	ui.avatarLabel->setCursor(QCursor(Qt::PointingHandCursor));
 
 	ui.chooseAvatarBtn->setCursor(QCursor(Qt::PointingHandCursor));
@@ -60,6 +64,32 @@ AddEditWindow::AddEditWindow(QWidget *parent)
 	connect(ui.chooseAvatarBtn, SIGNAL(clicked()), this, SLOT(onChooseAvatarBtnClicked()));
 	connect(ui.cancelBtn, SIGNAL(clicked()), this, SLOT(onCancelBtnClicked()));
 	connect(ui.saveBtn, SIGNAL(clicked()), this, SLOT(onConfirmBtnClicked()));
+
+	qDebug() << "type: " << type;
+	qDebug() << "phone: " << phone;
+
+	if (type == 1) {
+		// edit
+		ContactList contactList;
+		contactList.loadFromFile("data.json");
+		Contact* contact = contactList.getContactByPhone(phone.toStdString());
+		if (contact != nullptr) {
+			if (!contact->avatar.empty())
+				ui.avatarLabel->setStyleSheet(("background-image: url(" + QString(contact->avatar.c_str()) + "); background-repeat: no-repeat; background-position: center center; border-radius: 45px;").toStdString().c_str());
+			if (!contact->phone.empty())
+				ui.tbPhone->setText(contact->phone.c_str());
+			if (!contact->email.empty())
+				ui.tbEmail->setText(contact->email.c_str());
+			if (!contact->address.empty())
+				ui.tbAddress->setText(contact->address.c_str());
+			if (!contact->company.empty())
+				ui.tbComName->setText(contact->company.c_str());
+			if (!contact->position.empty())
+				ui.tbComPos->setText(contact->position.c_str());
+			if (!contact->name.empty())
+				ui.tbName->setText(contact->name.c_str());
+		}
+	}
 }
 
 void AddEditWindow::onCancelBtnClicked()
@@ -115,8 +145,18 @@ void AddEditWindow::onConfirmBtnClicked() {
 	contact.avatar = ui.avatarLabel->styleSheet().split("url(")[1].split(")")[0].toStdString();
 	contact.next = nullptr;
 	ContactList contactList;
-	contactList.addContact(&contact);
 	contactList.loadFromFile("data.json");
+	
+	if (type == 0){
+		if (contactList.isContactExists(contact.phone)) {
+			QMessageBox::warning(this, "Warning", "联系人(电话)已存在！");
+			return;
+		}
+		contactList.addContact(&contact);
+	}
+	else {
+		contactList.editContact(&contact);
+	}
 
 	if (contactList.saveToFile("data.json")) {
 		QMessageBox::information(this, "Success", "保存成功！");

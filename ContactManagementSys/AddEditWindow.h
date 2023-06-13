@@ -14,7 +14,8 @@ class AddEditWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	AddEditWindow(QWidget *parent = nullptr);
+    int type;
+	AddEditWindow(QWidget *parent = nullptr, int type =0, QString phone = nullptr);
     bool isValidEmail(const QString& email);
 	~AddEditWindow();
 
@@ -22,7 +23,16 @@ private:
 	Ui::AddEditWindowClass ui;
     bool m_dragging = false;
     QPoint m_dragPos;
+
+signals:
+    void windowClosed();
+
 protected:
+    void closeEvent(QCloseEvent* event) override
+    {
+        emit windowClosed();
+        QWidget::closeEvent(event);
+    }
 
     void mousePressEvent(QMouseEvent* event) override
     {

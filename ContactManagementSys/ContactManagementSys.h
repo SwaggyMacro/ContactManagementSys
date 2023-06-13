@@ -48,6 +48,7 @@ private:
 private slots:
     void onScrollBarValueChanged(int value);
     void onAddBtnClicked();
+    void onSearchBoxTextChanged(const QString& text);
 
 protected:
 

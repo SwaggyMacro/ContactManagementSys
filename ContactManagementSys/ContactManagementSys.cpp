@@ -6,32 +6,77 @@
 using namespace std;
 using namespace WzhePinYin;
 
-class CustomItemDelegate : public QStyledItemDelegate {
+class CustomDelegate : public QStyledItemDelegate
+{
 public:
-    using QStyledItemDelegate::QStyledItemDelegate;
+    ContactManagementSys* contactManagementSys;
+    explicit CustomDelegate(ContactManagementSys* cms, QObject* parent = nullptr) : QStyledItemDelegate(parent), contactManagementSys(cms) {}
 
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override {
-        if (option.state & QStyle::State_MouseOver) {
-            int row = index.row();
-
-            QTableView* tableView = qobject_cast<QTableView*>(parent());
-            if (tableView) {
-                if (tableView->isColumnHidden(2)) {
-                    tableView->setColumnHidden(2, false);
-                    tableView->setColumnHidden(3, false);
-                }
-            }
-        }
-        else {
-            QTableView* tableView = qobject_cast<QTableView*>(parent());
-            if (tableView) {
-                if (!tableView->isColumnHidden(2)) {
-                    tableView->setColumnHidden(2, true);
-                    tableView->setColumnHidden(2, true);
-                }
-            }
-        }
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    {
         QStyledItemDelegate::paint(painter, option, index);
+
+        if (index.column() == 0) {
+            QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+            if (!icon.isNull()) {
+                QRect iconRect = option.rect.adjusted(4, 4, -4, -4);
+                icon.paint(painter, iconRect, Qt::AlignCenter);
+            }
+        }
+    }
+
+    bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) override
+    {
+        if (event->type() == QEvent::MouseButtonRelease) {
+            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+
+            // edit icon click event
+            if (index.column() == 2 && option.rect.contains(mouseEvent->pos())) {
+                qDebug() << "edit Icon clicked at row" << index.row();
+
+                QString name = model->data(model->index(index.row(), 0)).toString();
+                qDebug() << "name:" << name;
+                QString phone = model->data(model->index(index.row(), 1)).toString();
+                qDebug() << "phone:" << phone;
+
+                AddEditWindow* addEditWindow = new AddEditWindow(nullptr, 1, phone);
+                addEditWindow->show();
+                connect(addEditWindow, &AddEditWindow::windowClosed, [&]() {
+                    qDebug() << "Window closed, reload data.";
+                    contactManagementSys->loadData();
+                });
+                return true;
+            }
+
+            // delete icon click event
+            if (index.column() == 3 && option.rect.contains(mouseEvent->pos())) {
+                qDebug() << "delete Icon clicked at row" << index.row();
+                QString name = model->data(model->index(index.row(), 0)).toString();
+                qDebug() << "name:" << name;
+                QString phone = model->data(model->index(index.row(), 1)).toString();
+                qDebug() << "phone:" << phone;
+
+                QMessageBox msgBox;
+                msgBox.setText("是否确定删除联系人？");
+                msgBox.setIcon(QMessageBox::Question);
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::No);
+                int ret = msgBox.exec();
+                switch (ret) {
+                    case QMessageBox::Yes:
+					    qDebug() << "Yes clicked";
+                        ContactList contactList;
+                        contactList.loadFromFile("data.json");
+                        contactList.deleteContact(phone.toStdString());
+                        contactList.saveToFile("data.json");
+					    contactManagementSys->loadData();
+					break;
+                }
+                return true;
+            }
+        }
+
+        return QStyledItemDelegate::editorEvent(event, model, option, index);
     }
 };
 
@@ -63,10 +108,8 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     ui.contactTable->horizontalHeader()->setVisible(false);
     ui.contactTable->verticalHeader()->setVisible(false);
     ui.contactTable->setFocusPolicy(Qt::NoFocus);
-    ui.contactTable->setColumnWidth(0, ui.contactTable->width() - 130);
-    ui.contactTable->setColumnWidth(1, 100);
     ui.contactTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui.contactTable->setItemDelegate(new CustomItemDelegate(ui.contactTable));
+    ui.contactTable->setItemDelegate(new CustomDelegate(this, ui.contactTable));
 
     ui.addButton->setCursor(QCursor(Qt::PointingHandCursor));
 
@@ -77,9 +120,26 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     loadData();
 
     hideColumn(ui.contactTable, 1);
-    hideColumn(ui.contactTable, 2);
-    hideColumn(ui.contactTable, 3);
 
+    // searchBox textChanged and search in tableview
+    connect(ui.searchBox, &QLineEdit::textChanged, this, &ContactManagementSys::onSearchBoxTextChanged);
+
+
+}
+
+void  ContactManagementSys::onSearchBoxTextChanged(const QString& text) {
+	qDebug() << "search text changed:" << text;
+    // search from the contact table
+    for (int i = 0; i < model->rowCount(); i++) {
+		QString name = model->data(model->index(i, 0)).toString();
+		QString phone = model->data(model->index(i, 1)).toString();
+        if (name.contains(text) || phone.contains(text)) {
+			ui.contactTable->showRow(i);
+		}
+        else {
+			ui.contactTable->hideRow(i);
+		}
+	}
 }
 
 void ContactManagementSys::onAddBtnClicked() {
@@ -91,11 +151,16 @@ void ContactManagementSys::onAddBtnClicked() {
 /// load data from local to the contact table
 /// </summary>
 void ContactManagementSys::loadData() {
+    // clear contactTable
+    if (model != nullptr) {
+		model->clear();
+	}
     ContactList contactList;
     contactList.loadFromFile("data.json");
     Contact* contact = contactList.getHead();
-    while (contact != nullptr && contact->next != nullptr) {
+    while (contact != nullptr) {
         insertRow(contact);
+        if (contact->next == nullptr) break;
         contact = contact->next;
 	}
 }
@@ -133,7 +198,7 @@ void ContactManagementSys::insertRow(Contact* contact) {
 
     QStandardItem* itemEdit = new QStandardItem();
     QStandardItem* itemDel = new QStandardItem();
-    QPixmap pEdit(":/ContactManagementSys/Assets/Images/edit.png");
+    QPixmap pEdit(":/ContactManagementSys/Assets/Images/edit_green.png");
     QPixmap pDel(":/ContactManagementSys/Assets/Images/delete.png");
 
     QIcon iconEdit(pEdit);
@@ -144,6 +209,11 @@ void ContactManagementSys::insertRow(Contact* contact) {
     QList<QStandardItem*> row;
     row << itemName << itemPhone << itemEdit << itemDel;
     model->appendRow(row);
+
+    // set the ror span 4 col
+    ui.contactTable->setSpan(model->rowCount() - 1, 0, 1, 4);
+
+    ui.contactTable->setColumnHidden(1, true);
     
 }
 

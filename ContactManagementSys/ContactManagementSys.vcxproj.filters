@@ -32,9 +32,6 @@
     <QtMoc Include="ContactManagementSys.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="ContactManagementSys.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <None Include="ContactManagementSys.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -55,6 +52,12 @@
     <ClCompile Include="AddEditWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MyQTableView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactManagementSys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Contact.h">
@@ -68,9 +71,15 @@
     <QtMoc Include="AddEditWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="MyQTableView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="AddEditWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MyQTableView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
