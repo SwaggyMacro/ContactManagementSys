@@ -14,6 +14,11 @@ C++ Qt实现的通讯录管理，仅用于`数据结构课程设计(2023-06-16)`
 支持拼音搜索、模糊查询、姓名首字母分类、点击字母跳转  
 主界面按照首字母顺序排序
 
+## 🎞开发环境
+`IDE`: **Visual Studio 2022**  
+`Extensions`: **Qt VS Tools**  
+`Qt Version`: **Qt 6.5**
+
 ## 🖼️程序截图
 ![](Screenshots/MainWindow.png)
 ![](Screenshots/AddEditWindow.png)
