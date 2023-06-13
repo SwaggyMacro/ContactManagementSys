@@ -68,6 +68,8 @@ AddEditWindow::AddEditWindow(QWidget *parent, int type, QString phone)
 	qDebug() << "type: " << type;
 	qDebug() << "phone: " << phone;
 
+	this->setWindowTitle("添加联系人");
+
 	if (type == 1) {
 		// edit
 		ContactList contactList;
@@ -86,8 +88,10 @@ AddEditWindow::AddEditWindow(QWidget *parent, int type, QString phone)
 				ui.tbComName->setText(contact->company.c_str());
 			if (!contact->position.empty())
 				ui.tbComPos->setText(contact->position.c_str());
-			if (!contact->name.empty())
+			if (!contact->name.empty()) {
 				ui.tbName->setText(contact->name.c_str());
+				this->setWindowTitle("编辑 " + QString::fromStdString(contact->name));
+			}
 		}
 	}
 }

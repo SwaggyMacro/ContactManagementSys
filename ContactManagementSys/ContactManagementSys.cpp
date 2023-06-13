@@ -57,7 +57,8 @@ public:
                 qDebug() << "phone:" << phone;
 
                 QMessageBox msgBox;
-                msgBox.setText("是否确定删除联系人？");
+                msgBox.setWindowTitle("提示");
+                msgBox.setText("是否确定删除 \"" + name + "\"？");
                 msgBox.setIcon(QMessageBox::Question);
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);
@@ -84,6 +85,8 @@ ContactManagementSys::ContactManagementSys(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    this->setWindowTitle("通讯录管理系统");
 
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
