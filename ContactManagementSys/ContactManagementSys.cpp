@@ -199,7 +199,7 @@ void  ContactManagementSys::onSearchBoxTextChanged(const QString& text) {
 			ui.contactTable->hideRow(i);
 		}
 	}
-    ui.labelCount->setText(QString::number(model->rowCount()) + " 已找到");
+    ui.labelCount->setText(QString::number(count) + " 已找到");
 }
 
 void ContactManagementSys::onAddBtnClicked() {
